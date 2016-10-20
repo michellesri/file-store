@@ -1,5 +1,4 @@
 const assert = require('assert'); //nodes native test, but can also use chai
-const fs = require('fs');
 
 const fileStore = require('../lib/tvShows');
 
@@ -23,19 +22,16 @@ var show3 = {
   hero: 'Lincoln Campbell'
 };
 
-myshows.push(show1, show2, show3);
+myShows.push(show1, show2, show3);
 
 
 describe('saves tv shows', () => {
 
-  it('saves one tv shows and returns the id', (done) => {
-    console.log('saves tv shows test is working');
-    fileStore.saveData(show2, (err, data) => {
-      if(err){
-        console.log('err in saves tv show: ' + err);
-      }
+  it('saves one tv show and returns the id', (done) => {
+    fileStore.saveData(show3, (err, dataID) => {
+      assert.ok(!err);
       //store / return id
-      console.log('data.id: ' + data.id);
+      assert.equal(dataID, 3);
       done();
     });
 
@@ -44,10 +40,11 @@ describe('saves tv shows', () => {
 
 describe('retrieve tv shows', () => {
 
-  it('retrieve data from file-store', (done) => {
-    console.log('retrieving data test');
-    fileStore.getFileContent(show2.id, (err, data) => {
-      console.log('err in retrieve tv show: ' + err);
+  it('retrieves data from file-store', (done) => {
+    fileStore.getFileContent(show3.id, (err, data) => {
+      assert.ok(!err);
+      // equal is for primitive. deepEqual is for objects
+      assert.deepEqual(data, show3);
       done();
     });
   });
@@ -55,15 +52,12 @@ describe('retrieve tv shows', () => {
 
 describe('get my shows', () => {
 
-  it('gets all tv shows', (done) => {
-    console.log(__dirname);
+  it('gets a list of all of my tvShow filenames', (done) => {
     fileStore.getDirectoryData(__dirname + '/../saveDirectory', (err, data) => {
-      console.log('data: ' + data);
       assert.ok(!err);
       //deepEqual checks for ===. equal checks for ==
-      assert.deepEqual(data, ['2.json']);
+      assert.deepEqual(data, ['1.json', '2.json', '3.json']);
       done();
     });
-    console.log('test is working');
   });
 });
