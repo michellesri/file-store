@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "test": "mocha",
-  "lint": "eslint **/*.js",
-  "watch": "mocha -w"
+    "test": "mocha",
+    "lint": "eslint **/*.js",
+    "watch": "mocha -w"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,8 @@
   "homepage": "https://github.com/michellesri/file-store#readme",
   "dependencies": {
     "mkdirp": "^0.5.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.2"
   }
 }
