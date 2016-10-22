@@ -52,11 +52,13 @@ describe('retrieve tv shows', () => {
 
 describe('get my shows', () => {
 
-  it('gets a list of all of my tvShow filenames', (done) => {
+  it('gets all of the objects back from the data store', (done) => {
     fileStore.getDirectoryData(__dirname + '/../saveDirectory', (err, data) => {
       assert.ok(!err);
       //deepEqual checks for ===. equal checks for ==
-      assert.deepEqual(data, ['1.json', '2.json', '3.json']);
+      //equal is for primitive data.
+      //deepEqual is for Objects and arrays
+      assert.deepEqual(data, myShows);
       done();
     });
   });
